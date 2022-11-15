@@ -7,7 +7,7 @@ import pygame
 
 
 class EscapeSpace:
-"""General class for the entire game. this will run all important methods and functions for the game."""
+    """General class for the entire game. this will run all important methods and functions for the game."""
     def __init(self):
         """initialize pygame for the game space"""
         pygame.init()
@@ -24,5 +24,7 @@ class EscapeSpace:
 
     def _check_keydown_events(self, event):
         """Respond to key-presses."""
-        if event.key == pygame.K_q:
+        if event.key == pygame.K_ESCAPE:
             sys.exit()
+
+            
