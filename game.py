@@ -1,4 +1,4 @@
-# File that runs the video game
+# File that runs the video game loop
 # imports 
 import sys
 from time import sleep
@@ -27,4 +27,4 @@ class EscapeSpace:
         if event.key == pygame.K_ESCAPE:
             sys.exit()
 
-            
+
