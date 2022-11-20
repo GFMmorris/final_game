@@ -5,19 +5,19 @@
 
 This will be a two level game with a functional main menu and scoreboard system.
 
-The file will include several class files (.py) the each contain one class of the entire game. One file will be the actual game file that will run the entire game.
+The file will include several class files (.py) each contain one class of the entire game. One file will be the actual game file that will run the entire game.
 
-Assets for the game are located in ithe images folder in this directory.
+Assets for the game are located in the images folder in this directory.
 
-The scoreboard will work as a continuously updated .txt file that stores the infromation as plain text. The information will be accessabile via json pull requests in game.
+The scoreboard will work as a continuously updated .txt file that stores the information as plain text. The information will be accessible via json pull requests in game.
 
-Each level will have the same map and enemies. Goal is to earn the most points during your playthrough.
+Each level will have the same map and enemies. Goal is to earn the most points during your play-through.
 
-Level 1: This a 2D platformer side crawler. There will be several types of enemies and functional gravity/ enviroment settings. Use  the WASD and space bar for controls. This level will be scored based on time to completion with a count up timer. 3 lives, if die, game over.
+Level 1: This a 2D platformer side crawler. There will be several types of enemies and functional gravity/ environment settings. Use  the WASD and space bar for controls. This level will be scored based on time to completion with a count up timer. 3 lives, if die, game over.
 
 Level 2: This level is a flight level with obstacle asteroids and small alien fleets that can be destroyed. The player earns more points depending on the number of aliens/asteriods they get rid of during their playthrough. 3 lives, if die, game over.
 
-Score: Score is determined by the sum of th etwo scores form Lvl 1 an Lvl 2. The player is first asked to input their name. Once accepted and checked, the file will then either:
+Score: Score is determined by the sum of th two scores form Lvl 1 and Lvl 2. The player is first asked to input their name. Once accepted and checked, the file will then either:
 
 1. Show their score if it is their first time and store the value in a .txt file.
 
