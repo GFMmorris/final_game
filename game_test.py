@@ -1,4 +1,3 @@
-
 import sys
 from menu import *
 
@@ -12,11 +11,17 @@ class Game:
         # Set key boolean values
         self.UP_KEY, self.DOWN_KEY, self.BACK_KEY, self.START_KEY = False, False, False, False
         # set display size
-        self.DISPLAY_W, self.DISPLAY_H = 480, 270
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.screen_width = self.screen.get_rect().width
+        self.screen_height = self.screen.get_rect().height
+
+        self.DISPLAY_W, self.DISPLAY_H = self.screen.get_rect().width, self.screen.get_rect().height
         self.display = pygame.Surface((self.DISPLAY_W, self.DISPLAY_H))
         self.window = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.font_name = pygame.font.get_default_font()
         self.BLACK, self.WHITE = (0, 0, 0), (255, 255, 255)
+
+        # Initialize the other menus and sets curr_menu status
         self.main_menu = MainMenu(self)
         self.options = OptionsMenu(self)
         self.credits = CreditsMenu(self)
