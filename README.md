@@ -22,3 +22,6 @@ Score: Score is determined by the sum of th two scores form Lvl 1 and Lvl 2. The
 1. Show their score if it is their first time and store the value in a .txt file.
 
 2. if the player is returning (i.e. their name is already in the system) The score is checked and the higher score is saved. Then the system displays the best score. OPT. if the score is an improvment the screen displys special graphics.
+
+
+TO RUN THE SYSTEM THUS FAR, RUN THE main.py FILE
