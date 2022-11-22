@@ -25,11 +25,12 @@ class MainMenu(Menu):
     def __init__(self, game):
         Menu.__init__(self, game)
         self.state = 'Start'
-        self.startx, self.starty = self.mid_w, self.mid_h + 30
-        self.optionsx, self.optionsy = self.mid_w, self.mid_h + 50
-        self.creditsx, self.creditsy = self.mid_w, self.mid_h + 70
+        self.start_x, self.start_y = self.mid_w, self.mid_h + 30
+        self.options_x, self.options_y = self.mid_w, self.mid_h + 50
+        self.credits_x, self.credits_y = self.mid_w, self.mid_h + 70
+        # self.quit_x, self.quit_y =
 
-        self.cursor_rect.midtop = (self.startx + self.offset, self.starty)
+        self.cursor_rect.midtop = (self.start_x + self.offset, self.start_y)
 
     def display_menu(self):
         self.run_display = True
@@ -38,9 +39,9 @@ class MainMenu(Menu):
             self.check_input()
             self.game.display.fill(self.game.BLACK)
             self.game.draw_text('Main Menu', 20, self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 2 - 20)
-            self.game.draw_text('Start Game', 20, self.startx, self.starty)
-            self.game.draw_text('Options', 20, self.optionsx, self.optionsy)
-            self.game.draw_text('Credits', 20, self.creditsx, self.creditsy)
+            self.game.draw_text('Start Game', 20, self.start_x, self.start_y)
+            self.game.draw_text('Options', 20, self.options_x, self.options_y)
+            self.game.draw_text('Credits', 20, self.credits_x, self.credits_y)
             self.draw_cursor()
             self.blit_screen()
 
@@ -48,23 +49,23 @@ class MainMenu(Menu):
         """Checks for logic direction for cursor based on starting position"""
         if self.game.DOWN_KEY:
             if self.state == 'Start':
-                self.cursor_rect.midtop = (self.optionsx + self.offset, self.optionsy)
+                self.cursor_rect.midtop = (self.options_x + self.offset, self.options_y)
                 self.state = 'Options'
             elif self.state == 'Options':
-                self.cursor_rect.midtop = (self.creditsx + self.offset, self.creditsy)
+                self.cursor_rect.midtop = (self.credits_x + self.offset, self.credits_y)
                 self.state = 'Credits'
             elif self.state == 'Credits':
-                self.cursor_rect.midtop = (self.startx + self.offset, self.starty)
+                self.cursor_rect.midtop = (self.start_x + self.offset, self.start_y)
                 self.state = 'Start'
         elif self.game.UP_KEY:
             if self.state == 'Start':
-                self.cursor_rect.midtop = (self.creditsx + self.offset, self.creditsy)
+                self.cursor_rect.midtop = (self.credits_x + self.offset, self.credits_y)
                 self.state = 'Credits'
             elif self.state == 'Credits':
-                self.cursor_rect.midtop = (self.optionsx + self.offset, self.optionsy)
+                self.cursor_rect.midtop = (self.options_x + self.offset, self.options_y)
                 self.state = 'Options'
             elif self.state == 'Options':
-                self.cursor_rect.midtop = (self.startx + self.offset, self.starty)
+                self.cursor_rect.midtop = (self.start_x + self.offset, self.start_y)
                 self.state = 'Start'
 
     def check_input(self):
@@ -85,9 +86,9 @@ class OptionsMenu(Menu):
     def __init__(self, game):
         Menu.__init__(self, game)
         self.state = 'Volume'
-        self.volx, self.voly = self.mid_w, self.mid_h + 20
-        self.controlsx, self.controlsy = self.mid_w, self.mid_h + 40
-        self.cursor_rect.midtop = (self.volx + self.offset, self.voly)
+        self.vol_x, self.vol_y = self.mid_w, self.mid_h + 20
+        self.controls_x, self.controls_y = self.mid_w, self.mid_h + 40
+        self.cursor_rect.midtop = (self.vol_x + self.offset, self.vol_y)
 
     def display_menu(self):
         self.run_display = True
@@ -96,8 +97,8 @@ class OptionsMenu(Menu):
             self.check_input()
             self.game.display.fill((0, 0, 0))
             self.game.draw_text('Options', 20, self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 2 - 30)
-            self.game.draw_text('Volume', 15, self.volx, self.voly)
-            self.game.draw_text('Controls', 15, self.controlsx, self.controlsy)
+            self.game.draw_text('Volume', 15, self.vol_x, self.vol_y)
+            self.game.draw_text('Controls', 15, self.controls_x, self.controls_y)
             self.draw_cursor()
             self.blit_screen()
 
@@ -108,10 +109,10 @@ class OptionsMenu(Menu):
         elif self.game.UP_KEY or self.game.DOWN_KEY:
             if self.state == 'Volume':
                 self.state = 'Controls'
-                self.cursor_rect.midtop = (self.controlsx + self.offset, self.controlsy)
+                self.cursor_rect.midtop = (self.controls_x + self.offset, self.controls_y)
             elif self.state == 'Controls':
                 self.state = 'Volume'
-                self.cursor_rect.midtop = (self.volx + self.offset, self.voly)
+                self.cursor_rect.midtop = (self.vol_x + self.offset, self.vol_y)
 
         # TODO: Create a Volume Menu from here. Follow same pattern as before for creating a menu
         elif self.game.START_KEY:
