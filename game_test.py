@@ -1,5 +1,6 @@
 import sys
 from menu import *
+from map import draw_background, TILE_SIZE
 
 
 class Game:
@@ -15,6 +16,11 @@ class Game:
         self.screen_width = self.screen.get_rect().width
         self.screen_height = self.screen.get_rect().height
 
+        # BG stuff
+        self.WINDOW_WIDTH = (self.screen_width / 18) * TILE_SIZE
+        self.WINDOW_HEIGHT = (self.screen_height / 18) * TILE_SIZE
+        self.bg = draw_background((self.WINDOW_WIDTH, self.WINDOW_HEIGHT))
+
         self.DISPLAY_W, self.DISPLAY_H = self.screen.get_rect().width, self.screen.get_rect().height
         self.display = pygame.Surface((self.DISPLAY_W, self.DISPLAY_H))
         self.window = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
@@ -29,12 +35,13 @@ class Game:
 
     def game_loop(self):
         while self.playing:
+            self.screen.blit(self.bg, self.bg.get_rect())
             self.check_events()
+            # TODO Remove start_key mapping feature by end game, could produce issues downstream
             if self.START_KEY:
                 self.playing = False
-            self.display.fill(self.BLACK)
-            self.draw_text('Thanks for playing', 20, self.DISPLAY_W / 2, self.DISPLAY_H / 2)
-            self.window.blit(self.display, (0, 0))
+            # self.draw_text('Thanks for playing', 20, self.DISPLAY_W / 2, self.DISPLAY_H / 2)
+            # self.window.blit(self.display, (0, 0))
             pygame.display.update()
             self.reset_keys()
 
