@@ -24,6 +24,7 @@ sky = [
 
 TILE_SIZE = 64
 
+
 blue_sky = pygame.image.load('images/Background/background_0000.png')
 blue_sky = pygame.transform.scale(blue_sky, (TILE_SIZE, TILE_SIZE))
 cloud_top = pygame.image.load('images/Background/background_0001.png')

@@ -1,6 +1,10 @@
 import sys
+
+import pygame.sprite
+
 from menu import *
 from map import draw_background, TILE_SIZE
+from ground import Ground, GROUND_SIZE
 
 
 class Game:
@@ -21,6 +25,9 @@ class Game:
         self.WINDOW_HEIGHT = (self.screen_height / 18) * TILE_SIZE
         self.bg = draw_background((self.WINDOW_WIDTH, self.WINDOW_HEIGHT))
 
+        # Ground stuff
+        self.ground_group = pygame.sprite.Group()
+
         self.DISPLAY_W, self.DISPLAY_H = self.screen.get_rect().width, self.screen.get_rect().height
         self.display = pygame.Surface((self.DISPLAY_W, self.DISPLAY_H))
         self.window = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
@@ -36,6 +43,7 @@ class Game:
     def game_loop(self):
         while self.playing:
             self.screen.blit(self.bg, self.bg.get_rect())
+            pygame.sprite.Group.draw(self.ground_group, self.screen)
             self.check_events()
             # TODO Remove start_key mapping feature by end game, could produce issues downstream
             if self.START_KEY:
