@@ -1,10 +1,13 @@
 import sys
 
+from time import time
+
 import pygame.sprite
 
 from menu import *
 from map import draw_background, TILE_SIZE
-from ground import Ground, GROUND_SIZE
+
+playing = False
 
 
 class Game:
@@ -12,7 +15,8 @@ class Game:
         pygame.init()
         # Self.running when the game as a whole is running, self.playing will be for when the game is actually
         # being played
-        self.running, self.playing = True, False
+        self.running = True
+        self.playing = False
         # Set key boolean values
         self.UP_KEY, self.DOWN_KEY, self.BACK_KEY, self.START_KEY = False, False, False, False
         # set display size
@@ -24,9 +28,6 @@ class Game:
         self.WINDOW_WIDTH = (self.screen_width / 18) * TILE_SIZE
         self.WINDOW_HEIGHT = (self.screen_height / 18) * TILE_SIZE
         self.bg = draw_background((self.WINDOW_WIDTH, self.WINDOW_HEIGHT))
-
-        # Ground stuff
-        self.ground_group = pygame.sprite.Group()
 
         self.DISPLAY_W, self.DISPLAY_H = self.screen.get_rect().width, self.screen.get_rect().height
         self.display = pygame.Surface((self.DISPLAY_W, self.DISPLAY_H))
@@ -41,17 +42,15 @@ class Game:
         self.curr_menu = self.main_menu
 
     def game_loop(self):
-        while self.playing:
+        while playing:
             self.screen.blit(self.bg, self.bg.get_rect())
-            pygame.sprite.Group.draw(self.ground_group, self.screen)
             self.check_events()
-            # TODO Remove start_key mapping feature by end game, could produce issues downstream
-            if self.START_KEY:
-                self.playing = False
+
             # self.draw_text('Thanks for playing', 20, self.DISPLAY_W / 2, self.DISPLAY_H / 2)
             # self.window.blit(self.display, (0, 0))
             pygame.display.update()
             self.reset_keys()
+            print(time, 'test')
 
     def check_events(self):
         for event in pygame.event.get():

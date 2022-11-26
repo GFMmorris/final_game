@@ -1,4 +1,5 @@
 import pygame
+import game_test
 
 
 # Base class for all menu types. Main, options, credits.
@@ -29,6 +30,7 @@ class MainMenu(Menu):
         self.options_x, self.options_y = self.mid_w, self.mid_h + 50
         self.credits_x, self.credits_y = self.mid_w, self.mid_h + 70
         self.quit_x, self.quit_y = self.mid_w, self.mid_h + 110
+        self.playing = False
 
         self.cursor_rect.midtop = (self.start_x + self.offset, self.start_y)
 
@@ -79,7 +81,11 @@ class MainMenu(Menu):
         self.move_cursor()
         if self.game.START_KEY:
             if self.state == 'Start':
-                self.game.playing = True
+                # start game loop
+                print('Check_input check')
+                self.playing = True
+                game_test.playing = True
+                return True
             elif self.state == 'Options':
                 self.game.curr_menu = self.game.options
             elif self.state == 'Credits':
