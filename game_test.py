@@ -1,27 +1,39 @@
-import sys
-
-from time import time
-
 import pygame.sprite
+import sys
+from ground import Ground, GROUND_SIZE
 
 from menu import *
 from map import draw_background, TILE_SIZE
 
 playing = False
 
+earth = pygame.sprite.Group()
+core = pygame.sprite.Group()
+
+for n in range(0, 1920, GROUND_SIZE):
+    earth.add(Ground(n, 700))
+
+for n in range(0,1920, GROUND_SIZE):
+    for r in (0, )
+
+
 
 class Game:
     def __init__(self):
         pygame.init()
+
         # Self.running when the game as a whole is running, self.playing will be for when the game is actually
         # being played
         self.running = True
         self.playing = False
+
         # Set key boolean values
         self.UP_KEY, self.DOWN_KEY, self.BACK_KEY, self.START_KEY = False, False, False, False
+
         # set display size
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.screen_width = self.screen.get_rect().width
+        print(self.screen_width)
         self.screen_height = self.screen.get_rect().height
 
         # BG stuff
@@ -29,6 +41,7 @@ class Game:
         self.WINDOW_HEIGHT = (self.screen_height / 18) * TILE_SIZE
         self.bg = draw_background((self.WINDOW_WIDTH, self.WINDOW_HEIGHT))
 
+        #
         self.DISPLAY_W, self.DISPLAY_H = self.screen.get_rect().width, self.screen.get_rect().height
         self.display = pygame.Surface((self.DISPLAY_W, self.DISPLAY_H))
         self.window = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
@@ -45,12 +58,9 @@ class Game:
         while playing:
             self.screen.blit(self.bg, self.bg.get_rect())
             self.check_events()
-
-            # self.draw_text('Thanks for playing', 20, self.DISPLAY_W / 2, self.DISPLAY_H / 2)
-            # self.window.blit(self.display, (0, 0))
-            pygame.display.update()
+            earth.draw(self.screen)
+            pygame.display.flip()
             self.reset_keys()
-            print(time, 'test')
 
     def check_events(self):
         for event in pygame.event.get():
@@ -79,3 +89,14 @@ class Game:
         text_rect = text_surface.get_rect()
         text_rect.center = (x, y)
         self.display.blit(text_surface, text_rect)
+
+    # def create_earth(self):
+    #     for x in range(0, self.WINDOW_WIDTH, TILE_SIZE):
+    #         earth = self._create_ground(self,(x,)
+    #         ground_group.add(earth)
+    #
+    # def _create_ground(self, pos):
+    #     # create a normal ground element
+    #     dirt = Ground(self, pos)
+    #     dirt_width, dirt_height = dirt.rect.size
+    #     dirt.rect.bottomleft = pos
