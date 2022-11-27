@@ -9,3 +9,4 @@ while g.running:
     g.curr_menu.display_menu()
     if game_test.playing:
         g.game_loop()
+

@@ -1,6 +1,7 @@
 import pygame.sprite
 import sys
-from ground import Ground, GROUND_SIZE
+from ground import Ground, GROUND_SIZE, Fill
+from chara import Chara
 
 from menu import *
 from map import draw_background, TILE_SIZE
@@ -13,9 +14,9 @@ core = pygame.sprite.Group()
 for n in range(0, 1920, GROUND_SIZE):
     earth.add(Ground(n, 700))
 
-for n in range(0,1920, GROUND_SIZE):
-    for r in (0, )
-
+for r in range(764, 1080, GROUND_SIZE):
+    for b in (0, 1920, GROUND_SIZE):
+        core.add(Fill(b, r))
 
 
 class Game:
@@ -33,7 +34,6 @@ class Game:
         # set display size
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.screen_width = self.screen.get_rect().width
-        print(self.screen_width)
         self.screen_height = self.screen.get_rect().height
 
         # BG stuff
@@ -56,9 +56,12 @@ class Game:
 
     def game_loop(self):
         while playing:
+            chara = Chara()
             self.screen.blit(self.bg, self.bg.get_rect())
             self.check_events()
             earth.draw(self.screen)
+            core.draw(self.screen)
+            chara.draw(self.screen)
             pygame.display.flip()
             self.reset_keys()
 
