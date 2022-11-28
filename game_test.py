@@ -6,18 +6,21 @@ from chara import Chara
 from menu import *
 from map import draw_background, TILE_SIZE
 
+# Variable for running game loop among all files
 playing = False
 
+# Standard screen size variables among all files
 DISPLAY_W = 700
 DISPLAY_H = 500
 
+# Ground Groups for game part 1
 earth = pygame.sprite.Group()
 core = pygame.sprite.Group()
 
 for n in range(0, DISPLAY_W, GROUND_SIZE):
-    earth.add(Ground(n, DISPLAY_H-200))
+    earth.add(Ground(n, DISPLAY_H - 200))
 
-for r in range(DISPLAY_H-168, DISPLAY_H, GROUND_SIZE):
+for r in range(DISPLAY_H - 168, DISPLAY_H, GROUND_SIZE):
     for b in (0, DISPLAY_W, GROUND_SIZE):
         core.add(Fill(b, r))
 
@@ -89,9 +92,11 @@ class Game:
                     sys.exit()
 
     def reset_keys(self):
+        # Function to reset all keys after a game loop
         self.UP_KEY, self.DOWN_KEY, self.BACK_KEY, self.START_KEY = False, False, False, False
 
     def draw_text(self, text, size, x, y):
+        # Function to draw text on menus
         font = pygame.font.Font(self.font_name, size)
         text_surface = font.render(text, True, self.WHITE)
         text_rect = text_surface.get_rect()
