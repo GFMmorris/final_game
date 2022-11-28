@@ -8,14 +8,17 @@ from map import draw_background, TILE_SIZE
 
 playing = False
 
+DISPLAY_W = 700
+DISPLAY_H = 500
+
 earth = pygame.sprite.Group()
 core = pygame.sprite.Group()
 
-for n in range(0, 1920, GROUND_SIZE):
-    earth.add(Ground(n, 700))
+for n in range(0, DISPLAY_W, GROUND_SIZE):
+    earth.add(Ground(n, DISPLAY_H-200))
 
-for r in range(764, 1080, GROUND_SIZE):
-    for b in (0, 1920, GROUND_SIZE):
+for r in range(DISPLAY_H-168, DISPLAY_H, GROUND_SIZE):
+    for b in (0, DISPLAY_W, GROUND_SIZE):
         core.add(Fill(b, r))
 
 
@@ -32,21 +35,23 @@ class Game:
         self.UP_KEY, self.DOWN_KEY, self.BACK_KEY, self.START_KEY = False, False, False, False
 
         # set display size
-        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.screen = pygame.display.set_mode((700, 500))
         self.screen_width = self.screen.get_rect().width
         self.screen_height = self.screen.get_rect().height
 
-        # BG stuff
-        self.WINDOW_WIDTH = (self.screen_width / 18) * TILE_SIZE
-        self.WINDOW_HEIGHT = (self.screen_height / 18) * TILE_SIZE
-        self.bg = draw_background((self.WINDOW_WIDTH, self.WINDOW_HEIGHT))
-
-        #
-        self.DISPLAY_W, self.DISPLAY_H = self.screen.get_rect().width, self.screen.get_rect().height
+        # Window Information
+        self.DISPLAY_W, self.DISPLAY_H = 700, 500
         self.display = pygame.Surface((self.DISPLAY_W, self.DISPLAY_H))
-        self.window = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.window = pygame.display.set_mode((self.DISPLAY_W, self.DISPLAY_H))
+
+        # Text information
         self.font_name = pygame.font.get_default_font()
         self.BLACK, self.WHITE = (0, 0, 0), (255, 255, 255)
+
+        # BackGround stuff
+        self.WINDOW_WIDTH = (self.DISPLAY_W / 18) * TILE_SIZE
+        self.WINDOW_HEIGHT = (self.DISPLAY_H / 18) * TILE_SIZE
+        self.bg = draw_background((self.WINDOW_WIDTH, self.WINDOW_HEIGHT))
 
         # Initialize the other menus and sets curr_menu status
         self.main_menu = MainMenu(self)
@@ -61,7 +66,7 @@ class Game:
             self.check_events()
             earth.draw(self.screen)
             core.draw(self.screen)
-            chara.draw(self.screen)
+            chara.update(self.screen)
             pygame.display.flip()
             self.reset_keys()
 

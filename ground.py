@@ -1,6 +1,6 @@
 import pygame
 
-GROUND_SIZE = 64
+GROUND_SIZE = 32
 
 
 class Ground(pygame.sprite.Sprite):

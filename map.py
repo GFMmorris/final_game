@@ -23,7 +23,7 @@ sky = [
 ]
 
 
-TILE_SIZE = 64
+TILE_SIZE = 32
 
 
 blue_sky = pygame.image.load('images/Background/background_0000.png')
