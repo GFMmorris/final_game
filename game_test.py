@@ -141,5 +141,3 @@ class Game:
 
         # Flip the final Screen
         pygame.display.flip()
-
-

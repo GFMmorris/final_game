@@ -11,15 +11,17 @@ class Bullet(Sprite):
         super().__init__()
         self.screen = g_game.screen
         self.image = pygame.image.load('images/TilesShips/bullet.png')
+        self.image = pygame.transform.scale2x(self.image)
+        self.rect = self.image.get_rect()
         self.image_x = self.image.get_width()
         self.image_y = self.image.get_height()
 
         # bullet settings
-        self.bullet_speed = 1.5
-        self.bullets_allowed = 5
+        self.bullet_speed = 0.5
+        self.bullets_allowed = 4
 
         # bullet position data
-        self.rect = pygame.Rect(0,0,self.image_x,self.image_y)
+        self.rect = pygame.Rect(0, 0, self.image_x, self.image_y)
         self.rect.midright = g_game.chara.rect.midright
         self.x = float(self.rect.x)
 
@@ -32,4 +34,3 @@ class Bullet(Sprite):
 
     def make_bullet(self):
         self.screen.blit(self.image, self.rect)
-
