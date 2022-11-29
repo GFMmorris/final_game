@@ -1,7 +1,9 @@
 import pygame.sprite
 import sys
+
 from ground import Ground, GROUND_SIZE, Fill
 from chara import Chara
+from bullet import Bullet
 
 from menu import *
 from map import draw_background, TILE_SIZE
@@ -20,8 +22,8 @@ core = pygame.sprite.Group()
 for n in range(0, DISPLAY_W, GROUND_SIZE):
     earth.add(Ground(n, DISPLAY_H - 200))
 
-for r in range(DISPLAY_H - 168, DISPLAY_H, GROUND_SIZE):
-    for b in (0, DISPLAY_W, GROUND_SIZE):
+for b in (0, DISPLAY_W, GROUND_SIZE):
+    for r in range(332, 500, GROUND_SIZE):
         core.add(Fill(b, r))
 
 
@@ -64,14 +66,13 @@ class Game:
 
         # init character
         self.chara = Chara(self)
+        self.bullets = pygame.sprite.Group()
+        self.bullets_allowed = 5
 
     def game_loop(self):
         while playing:
-            self.screen.blit(self.bg, self.bg.get_rect())
             self.check_events()
-            earth.draw(self.screen)
-            core.draw(self.screen)
-            pygame.display.flip()
+            self._update_bullets()
             self.reset_keys()
             self.update_screen()
 
@@ -92,10 +93,30 @@ class Game:
                 # force quite function to stop the game and close the program
                 if event.key == pygame.K_ESCAPE:
                     sys.exit()
+                if event.key == pygame.K_SPACE:
+                    pass
+                if event.key == pygame.K_f:
+                    self._fire_bullet()
 
     def reset_keys(self):
         # Function to reset all keys after a game loop
         self.UP_KEY, self.DOWN_KEY, self.BACK_KEY, self.START_KEY = False, False, False, False
+
+    def _fire_bullet(self):
+        """Create a new bullet and add it to the bullet group"""
+        if len(self.bullets) < self.bullets_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
+
+    def _update_bullets(self):
+        """Update the position of the bullets and then get rid of old bullets"""
+        # update bullet position
+        self.bullets.update()
+
+        # Get rid of bullets that have disappeared
+        for bullet in self.bullets.copy():
+            if bullet.rect.left >= DISPLAY_W:
+                self.bullets.remove(bullet)
 
     def draw_text(self, text, size, x, y):
         # Function to draw text on menus
@@ -107,10 +128,18 @@ class Game:
 
     def update_screen(self):
         """Update the screen with all information about the chara and all enemies and projectiles"""
-        self.chara.update()
+        # Background and ground building
+        self.screen.blit(self.bg, self.bg.get_rect())
+        earth.draw(self.screen)
+        core.draw(self.screen)
+        # Draw the character
         self.chara.blitme()
 
+        # blit bullet
+        for bullet in self.bullets.sprites():
+            bullet.make_bullet()
+
+        # Flip the final Screen
         pygame.display.flip()
-        # for billet in self.bullets.sprites():
-        #     bullet.draw_bullet()
+
 
