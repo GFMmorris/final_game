@@ -1,7 +1,5 @@
 import pygame
 
-# 0 is fill_dirt
-
 sky = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -25,6 +23,7 @@ sky = [
 
 TILE_SIZE = 32
 
+# Sets and modifies all of the background images for the bg
 
 blue_sky = pygame.image.load('images/Background/background_0000.png')
 blue_sky = pygame.transform.scale(blue_sky, (TILE_SIZE, TILE_SIZE))

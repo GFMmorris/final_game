@@ -62,16 +62,18 @@ class Game:
         self.credits = CreditsMenu(self)
         self.curr_menu = self.main_menu
 
+        # init character
+        self.chara = Chara(self)
+
     def game_loop(self):
         while playing:
-            chara = Chara()
             self.screen.blit(self.bg, self.bg.get_rect())
             self.check_events()
             earth.draw(self.screen)
             core.draw(self.screen)
-            chara.update(self.screen)
             pygame.display.flip()
             self.reset_keys()
+            self.update_screen()
 
     def check_events(self):
         for event in pygame.event.get():
@@ -103,13 +105,12 @@ class Game:
         text_rect.center = (x, y)
         self.display.blit(text_surface, text_rect)
 
-    # def create_earth(self):
-    #     for x in range(0, self.WINDOW_WIDTH, TILE_SIZE):
-    #         earth = self._create_ground(self,(x,)
-    #         ground_group.add(earth)
-    #
-    # def _create_ground(self, pos):
-    #     # create a normal ground element
-    #     dirt = Ground(self, pos)
-    #     dirt_width, dirt_height = dirt.rect.size
-    #     dirt.rect.bottomleft = pos
+    def update_screen(self):
+        """Update the screen with all information about the chara and all enemies and projectiles"""
+        self.chara.update()
+        self.chara.blitme()
+
+        pygame.display.flip()
+        # for billet in self.bullets.sprites():
+        #     bullet.draw_bullet()
+
