@@ -11,9 +11,14 @@ from map import draw_background, TILE_SIZE
 # Variable for running game loop among all files
 playing = False
 
+# jumping variable for global use
+jumping = False
+
 # Standard screen size variables among all files
 DISPLAY_W = 700
 DISPLAY_H = 500
+
+CLOCK = pygame.time.Clock()
 
 # Ground Groups for game part 1
 earth = pygame.sprite.Group()
@@ -67,7 +72,7 @@ class Game:
         # init character
         self.chara = Chara(self)
         self.bullets = pygame.sprite.Group()
-        self.bullets_allowed = 5
+        self.bullets_allowed = 3
 
     def game_loop(self):
         while playing:
@@ -108,6 +113,14 @@ class Game:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
 
+    def _chara_jump(self):
+        """Make the chracter jump on the screen"""
+        jumping = True
+
+    def _update_chara(self):
+        """Update the position of the chara"""
+        self.chara.update()
+
     def _update_bullets(self):
         """Update the position of the bullets and then get rid of old bullets"""
         # update bullet position
@@ -132,12 +145,16 @@ class Game:
         self.screen.blit(self.bg, self.bg.get_rect())
         earth.draw(self.screen)
         core.draw(self.screen)
-        # Draw the character
-        self.chara.blitme()
 
         # blit bullet
         for bullet in self.bullets.sprites():
             bullet.make_bullet()
 
+        # Draw the character
+        self.chara.blitme()
+
+
+
         # Flip the final Screen
         pygame.display.flip()
+        CLOCK.tick(60)

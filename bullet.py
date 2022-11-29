@@ -17,8 +17,8 @@ class Bullet(Sprite):
         self.image_y = self.image.get_height()
 
         # bullet settings
-        self.bullet_speed = 0.5
-        self.bullets_allowed = 4
+        self.bullet_speed = 8
+        self.bullets_allowed = 3
 
         # bullet position data
         self.rect = pygame.Rect(0, 0, self.image_x, self.image_y)

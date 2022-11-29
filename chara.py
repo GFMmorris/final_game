@@ -1,4 +1,5 @@
 import pygame
+import game_test
 
 
 class Chara(pygame.sprite.Sprite):
@@ -13,11 +14,11 @@ class Chara(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (54, 54))
         self.image = pygame.transform.flip(self.image, flip_x=True, flip_y=False)
 
-        # gets tje rect for the image
+        # gets the rect for the image
         self.rect = self.image.get_rect()
 
         # Sets position for character
-        self.rect.midbottom = (200, 300)
+        self.rect.midbottom = (100, 300)
         self.x = float(self.rect.x)
         self.y = float(self.rect.y)
 
@@ -26,9 +27,16 @@ class Chara(pygame.sprite.Sprite):
         self.moving_down = False
 
         # physics variables
-        self.up_speed = 20
-        self.down_speed = 1
+        self.jump_height = 20
         self.gravity = 1
+        self.up_speed = self.jump_height
+
+    def update(self):
+        if game_test.jumping:
+            self.y -= self.up_speed
+            self.up_speed -= self.gravity
+            if self.up_speed < -self.jump_height:
+                game_test.jumping = False
 
     def blitme(self):
         self.screen.blit(self.image, self.rect)
@@ -37,11 +45,3 @@ class Chara(pygame.sprite.Sprite):
         self.image1 = pygame.image.load('images/Characters/chara_1_stand.png')
         self.image1 = pygame.transform.scale(self.image, (96, 96))
         self.image1 = pygame.transform.flip(self.image, flip_x=True, flip_y=False)
-
-    def update(self):
-        pass
-        # if self.moving_up:
-        #     self.y -= self.up_speed - self.gravity
-        #     if self.y <= 0:
-        #         self.y = 0
-
