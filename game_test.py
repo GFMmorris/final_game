@@ -78,6 +78,7 @@ class Game:
         while playing:
             self.check_events()
             self._update_bullets()
+            self._update_chara()
             self.reset_keys()
             self.update_screen()
 
@@ -99,7 +100,8 @@ class Game:
                 if event.key == pygame.K_ESCAPE:
                     sys.exit()
                 if event.key == pygame.K_SPACE:
-                    pass
+                    game_test.jumping = True
+                    self._chara_jump()
                 if event.key == pygame.K_f:
                     self._fire_bullet()
 
@@ -115,7 +117,7 @@ class Game:
 
     def _chara_jump(self):
         """Make the chracter jump on the screen"""
-        jumping = True
+        self.chara.jump()
 
     def _update_chara(self):
         """Update the position of the chara"""
@@ -146,14 +148,13 @@ class Game:
         earth.draw(self.screen)
         core.draw(self.screen)
 
+
         # blit bullet
         for bullet in self.bullets.sprites():
             bullet.make_bullet()
 
         # Draw the character
         self.chara.blitme()
-
-
 
         # Flip the final Screen
         pygame.display.flip()

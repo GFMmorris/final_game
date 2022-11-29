@@ -31,12 +31,16 @@ class Chara(pygame.sprite.Sprite):
         self.gravity = 1
         self.up_speed = self.jump_height
 
-    def update(self):
+    def jump(self):
+        start_position = self.rect.midbottom
         if game_test.jumping:
             self.y -= self.up_speed
             self.up_speed -= self.gravity
-            if self.up_speed < -self.jump_height:
+            if self.y == start_position:
                 game_test.jumping = False
+
+    def update(self):
+        self.rect.y = self.y
 
     def blitme(self):
         self.screen.blit(self.image, self.rect)
