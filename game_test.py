@@ -74,10 +74,13 @@ class Game:
         self.bullets = pygame.sprite.Group()
         self.bullets_allowed = 3
 
+    #Molly Tressler Helped to make CHara jump
     def game_loop(self):
         while playing:
             self.check_events()
             self._update_bullets()
+            if jumping:
+                self.chara.jump()
             self._update_chara()
             self.reset_keys()
             self.update_screen()
@@ -101,7 +104,7 @@ class Game:
                     sys.exit()
                 if event.key == pygame.K_SPACE:
                     game_test.jumping = True
-                    self._chara_jump()
+                    self.chara.jump()
                 if event.key == pygame.K_f:
                     self._fire_bullet()
 
@@ -115,12 +118,13 @@ class Game:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
 
-    def _chara_jump(self):
-        """Make the chracter jump on the screen"""
-        self.chara.jump()
+    # def _chara_jump(self):
+    #     """Make the chracter jump on the screen"""
+    #     self.chara.jump()
 
     def _update_chara(self):
         """Update the position of the chara"""
+
         self.chara.update()
 
     def _update_bullets(self):
@@ -147,7 +151,6 @@ class Game:
         self.screen.blit(self.bg, self.bg.get_rect())
         earth.draw(self.screen)
         core.draw(self.screen)
-
 
         # blit bullet
         for bullet in self.bullets.sprites():

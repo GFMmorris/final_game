@@ -16,6 +16,7 @@ class Bullet(Sprite):
         self.image_x = self.image.get_width()
         self.image_y = self.image.get_height()
 
+
         # bullet settings
         self.bullet_speed = 8
         self.bullets_allowed = 3
@@ -31,6 +32,7 @@ class Bullet(Sprite):
         self.x += self.bullet_speed
         # update the rect position
         self.rect.x = self.x
+
 
     def make_bullet(self):
         self.screen.blit(self.image, self.rect)

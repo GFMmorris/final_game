@@ -20,10 +20,9 @@ sky = [
     [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
 ]
 
-
 TILE_SIZE = 32
 
-# Sets and modifies all of the background images for the bg
+# Sets and modifies all the background images for the bg
 
 blue_sky = pygame.image.load('images/Background/background_0000.png')
 blue_sky = pygame.transform.scale(blue_sky, (TILE_SIZE, TILE_SIZE))
@@ -36,6 +35,7 @@ cloud = pygame.transform.scale(cloud, (TILE_SIZE, TILE_SIZE))
 sky_tiles = [blue_sky, cloud_top, cloud]
 
 
+# Creates background using tiles in a list of lists
 def draw_background(bg_size):
     bg = pygame.Surface(bg_size)
     # draw each tile in the bg

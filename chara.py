@@ -30,6 +30,7 @@ class Chara(pygame.sprite.Sprite):
         self.jump_height = 20
         self.gravity = 1
         self.up_speed = self.jump_height
+        self.falling = True
 
     def jump(self):
         start_position = self.rect.midbottom
@@ -40,6 +41,7 @@ class Chara(pygame.sprite.Sprite):
                 game_test.jumping = False
 
     def update(self):
+
         self.rect.y = self.y
 
     def blitme(self):
