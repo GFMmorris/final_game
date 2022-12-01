@@ -3,7 +3,9 @@ import sys
 
 from ground import Ground, GROUND_SIZE, Fill
 from chara import Chara
+from chara2 import Chara2
 from bullet import Bullet
+from bullet2 import Bullet2
 
 from menu import *
 from map import draw_background, TILE_SIZE
@@ -72,10 +74,11 @@ class Game:
 
         # init character
         self.chara = Chara(self, 'images/Characters/chara_1_stand.png', (100, 300))
-        self.chara_2 = Chara(self, 'images/Characters/chara_2_stand.png', (150, 300))
+        self.chara_2 = Chara2(self, 'images/Characters/chara_2_stand.png', (150, 300))
         self.bullets = pygame.sprite.Group()
         self.bullets_2 = pygame.sprite.Group()
         self.bullets_allowed = 3
+        self.bullets_allowed_2 = 3
 
     # Molly Tressler Helped to make CHara jump
     def game_loop(self):
@@ -84,7 +87,8 @@ class Game:
             self._update_bullets()
             if jumping:
                 self.chara.jump()
-                self.chara_2.jump_2()
+            if jumping_2:
+                self.chara_2.jump()
             self._update_chara()
             self.reset_keys()
             self.update_screen()
@@ -107,14 +111,15 @@ class Game:
                 # force quite function to stop the game and close the program
                 if event.key == pygame.K_ESCAPE:
                     sys.exit()
-                if event.key == pygame.K_SPACE:
+                if event.key == pygame.K_w:
                     game_test.jumping = True
                     self.chara.jump()
-                if event.key == pygame.K_f:
+                if event.key == pygame.K_d:
                     self._chara_fire_bullet()
-                if event.key == pygame.K_KP0:
-                    self.chara_2.jump_2()
-                if event.key == pygame.K_PLUS:
+                if event.key == pygame.K_o:
+                    game_test.jumping_2 = True
+                    self.chara_2.jump()
+                if event.key == pygame.K_l:
                     self._chara_2_fire_bullet()
 
     def reset_keys(self):
@@ -129,8 +134,8 @@ class Game:
 
     def _chara_2_fire_bullet(self):
         """Create a new bullet and add it to the bullet group"""
-        if len(self.bullets) < self.bullets_allowed:
-            new_bullet = Bullet(self)
+        if len(self.bullets_2) < self.bullets_allowed_2:
+            new_bullet = Bullet2(self)
             self.bullets_2.add(new_bullet)
 
     # def _chara_jump(self):
@@ -146,7 +151,7 @@ class Game:
         """Update the position of the bullets and then get rid of old bullets"""
         # update bullet position
         self.bullets.update()
-        self.bullets_2.update(())
+        self.bullets_2.update()
         # Get rid of bullets that have disappeared
         for bullet in self.bullets.copy():
             if bullet.rect.left >= DISPLAY_W:
