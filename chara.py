@@ -26,7 +26,8 @@ class Chara(pygame.sprite.Sprite):
         self.moving_up = False
         self.moving_down = False
 
-        # physics variables
+        # physics variables using an arbitrary 'gravity' value to
+        # simulate the increase/decrease in acceleration away/towards the ground.
         self.jump_height = 20
         self.gravity = 1
         self.up_speed = self.jump_height
@@ -46,7 +47,6 @@ class Chara(pygame.sprite.Sprite):
     def update(self):
         """Update the characters rect position"""
         self.rect.y = self.y
-
 
     def blitme(self):
         self.screen.blit(self.image, self.rect)
