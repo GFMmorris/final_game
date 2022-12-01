@@ -36,6 +36,8 @@ for b in (0, DISPLAY_W, GROUND_SIZE):
 
 
 class Game:
+    """Game class that holds the main class and game loop that runs the menu and the other classes"""
+
     def __init__(self):
         pygame.init()
 
@@ -66,6 +68,10 @@ class Game:
         self.WINDOW_HEIGHT = (self.DISPLAY_H / 18) * TILE_SIZE
         self.bg = draw_background((self.WINDOW_WIDTH, self.WINDOW_HEIGHT))
 
+        # Sound inits for the game
+        self.chara_gun_sound = 'sounds/lazer7.mp3'
+        self.chara_2_gun_sound = 'sounds/lazer15.mp3'
+
         # Initialize the other menus and sets curr_menu status
         self.main_menu = MainMenu(self)
         self.options = OptionsMenu(self)
@@ -85,20 +91,17 @@ class Game:
         while playing:
             self.check_events()
             self._update_bullets()
-            if jumping:
-                self.chara.jump()
-            if jumping_2:
-                self.chara_2.jump()
             self._update_chara()
             self.reset_keys()
             self.update_screen()
 
     def check_events(self):
-        """Key Press event information. Gets events from pygame.event, checks the kind of event."""
+        """Key Press event information. Gets events from pygame. Event, checks the kind of event."""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running, self.playing = False, False
                 self.curr_menu.run_display = False
+                sys.exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     self.START_KEY = True
@@ -116,11 +119,15 @@ class Game:
                     self.chara.jump()
                 if event.key == pygame.K_d:
                     self._chara_fire_bullet()
+                    pygame.mixer.music.load(self.chara_gun_sound, "pew")
+                    pygame.mixer.music.play()
                 if event.key == pygame.K_o:
                     game_test.jumping_2 = True
                     self.chara_2.jump()
                 if event.key == pygame.K_l:
                     self._chara_2_fire_bullet()
+                    pygame.mixer.music.load(self.chara_2_gun_sound, "pew2")
+                    pygame.mixer.music.play()
 
     def reset_keys(self):
         # Function to reset all keys after a game loop
@@ -144,6 +151,10 @@ class Game:
 
     def _update_chara(self):
         """Update the position of the chara"""
+        if jumping:
+            self.chara.jump()
+        if jumping_2:
+            self.chara_2.jump()
         self.chara.update()
         self.chara_2.update()
 
