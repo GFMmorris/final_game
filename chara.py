@@ -46,9 +46,6 @@ class Chara(pygame.sprite.Sprite):
     def update(self):
         """Update the characters rect position"""
         self.rect.y = self.y
-        # if self.rect.y == 246:
-        #     game_test.jumping = False
-        print(self.rect.y)
 
 
     def blitme(self):
