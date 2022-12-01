@@ -11,8 +11,9 @@ from map import draw_background, TILE_SIZE
 # Variable for running game loop among all files
 playing = False
 
-# jumping variable for global use
+# jumping variable for global use for both characters
 jumping = False
+jumping_2 = False
 
 # Standard screen size variables among all files
 DISPLAY_W = 700
@@ -73,6 +74,7 @@ class Game:
         self.chara = Chara(self, 'images/Characters/chara_1_stand.png', (100, 300))
         self.chara_2 = Chara(self, 'images/Characters/chara_2_stand.png', (150, 300))
         self.bullets = pygame.sprite.Group()
+        self.bullets_2 = pygame.sprite.Group()
         self.bullets_allowed = 3
 
     # Molly Tressler Helped to make CHara jump
@@ -82,6 +84,7 @@ class Game:
             self._update_bullets()
             if jumping:
                 self.chara.jump()
+                self.chara_2.jump_2()
             self._update_chara()
             self.reset_keys()
             self.update_screen()
@@ -108,17 +111,27 @@ class Game:
                     game_test.jumping = True
                     self.chara.jump()
                 if event.key == pygame.K_f:
-                    self._fire_bullet()
+                    self._chara_fire_bullet()
+                if event.key == pygame.K_KP0:
+                    self.chara_2.jump_2()
+                if event.key == pygame.K_PLUS:
+                    self._chara_2_fire_bullet()
 
     def reset_keys(self):
         # Function to reset all keys after a game loop
         self.UP_KEY, self.DOWN_KEY, self.BACK_KEY, self.START_KEY = False, False, False, False
 
-    def _fire_bullet(self):
+    def _chara_fire_bullet(self):
         """Create a new bullet and add it to the bullet group"""
         if len(self.bullets) < self.bullets_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
+
+    def _chara_2_fire_bullet(self):
+        """Create a new bullet and add it to the bullet group"""
+        if len(self.bullets) < self.bullets_allowed:
+            new_bullet = Bullet(self)
+            self.bullets_2.add(new_bullet)
 
     # def _chara_jump(self):
     #     """Make the chracter jump on the screen"""
@@ -126,7 +139,6 @@ class Game:
 
     def _update_chara(self):
         """Update the position of the chara"""
-
         self.chara.update()
         self.chara_2.update()
 
@@ -134,11 +146,14 @@ class Game:
         """Update the position of the bullets and then get rid of old bullets"""
         # update bullet position
         self.bullets.update()
-
+        self.bullets_2.update(())
         # Get rid of bullets that have disappeared
         for bullet in self.bullets.copy():
             if bullet.rect.left >= DISPLAY_W:
                 self.bullets.remove(bullet)
+        for bullet in self.bullets_2.copy():
+            if bullet.rect.left >= DISPLAY_W:
+                self.bullets_2.remove(bullet)
 
     def draw_text(self, text, size, x, y):
         # Function to draw text on menus
@@ -155,8 +170,12 @@ class Game:
         earth.draw(self.screen)
         core.draw(self.screen)
 
-        # blit bullet
+        # blit bullet for chara 1
         for bullet in self.bullets.sprites():
+            bullet.make_bullet()
+
+        # blit bullet for chara 2
+        for bullet in self.bullets_2.sprites():
             bullet.make_bullet()
 
         # Draw the character
