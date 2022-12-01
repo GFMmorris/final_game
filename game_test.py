@@ -74,7 +74,7 @@ class Game:
         self.bullets = pygame.sprite.Group()
         self.bullets_allowed = 3
 
-    #Molly Tressler Helped to make CHara jump
+    # Molly Tressler Helped to make CHara jump
     def game_loop(self):
         while playing:
             self.check_events()
@@ -86,6 +86,7 @@ class Game:
             self.update_screen()
 
     def check_events(self):
+        """Key Press event information. Gets events from pygame.event, checks the kind of event."""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running, self.playing = False, False

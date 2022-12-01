@@ -33,16 +33,23 @@ class Chara(pygame.sprite.Sprite):
         self.falling = True
 
     def jump(self):
-        start_position = self.rect.midbottom
+        # Function to  make the character jump. This is run when jumping is set to true.
         if game_test.jumping:
             self.y -= self.up_speed
             self.up_speed -= self.gravity
-            if self.y == start_position:
+            if self.up_speed < - self.jump_height:
                 game_test.jumping = False
+                self.up_speed = self.jump_height
+            self.rect.midbottom = (100, 300)
+            # if pygame.sprite.spritecollide(self, game_test.earth, False):
 
     def update(self):
-
+        """Update the characters rect position"""
         self.rect.y = self.y
+        # if self.rect.y == 246:
+        #     game_test.jumping = False
+        print(self.rect.y)
+
 
     def blitme(self):
         self.screen.blit(self.image, self.rect)
