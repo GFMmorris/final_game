@@ -70,7 +70,8 @@ class Game:
         self.curr_menu = self.main_menu
 
         # init character
-        self.chara = Chara(self)
+        self.chara = Chara(self, 'images/Characters/chara_1_stand.png', (100, 300))
+        self.chara_2 = Chara(self, 'images/Characters/chara_2_stand.png', (150, 300))
         self.bullets = pygame.sprite.Group()
         self.bullets_allowed = 3
 
@@ -127,6 +128,7 @@ class Game:
         """Update the position of the chara"""
 
         self.chara.update()
+        self.chara_2.update()
 
     def _update_bullets(self):
         """Update the position of the bullets and then get rid of old bullets"""
@@ -159,6 +161,7 @@ class Game:
 
         # Draw the character
         self.chara.blitme()
+        self.chara_2.blitme()
 
         # Flip the final Screen
         pygame.display.flip()

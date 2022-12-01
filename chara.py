@@ -3,14 +3,14 @@ import game_test
 
 
 class Chara(pygame.sprite.Sprite):
-    def __init__(self, g_game):
+    def __init__(self, g_game, image, pos):
         pygame.sprite.Sprite.__init__(self)
         # Allow for access to the screen rect and position arguments
         self.screen = g_game.screen
         self.screen_rect = self.screen.get_rect()
 
         # Sets the charaters image and transforms it to look right
-        self.image = pygame.image.load('images/Characters/chara_1_stand.png')
+        self.image = pygame.image.load(image)
         self.image = pygame.transform.scale(self.image, (54, 54))
         self.image = pygame.transform.flip(self.image, flip_x=True, flip_y=False)
 
@@ -18,7 +18,7 @@ class Chara(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
         # Sets position for character
-        self.rect.midbottom = (100, 300)
+        self.rect.midbottom = pos
         self.x = float(self.rect.x)
         self.y = float(self.rect.y)
 
