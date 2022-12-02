@@ -6,6 +6,7 @@ from chara import Chara
 from chara2 import Chara2
 from bullet import Bullet
 from bullet2 import Bullet2
+from enemy import Bird
 
 from menu import *
 from map import draw_background, TILE_SIZE
@@ -86,6 +87,9 @@ class Game:
         self.bullets_allowed = 3
         self.bullets_allowed_2 = 3
 
+        # enemy init data
+        self.birds = pygame.sprite.Group()
+
     # Molly Tressler Helped to make CHara jump
     def game_loop(self):
         while playing:
@@ -124,7 +128,7 @@ class Game:
                 if event.key == pygame.K_o:
                     game_test.jumping_2 = True
                     self.chara_2.jump()
-                if event.key == pygame.K_l:
+                if event.key == pygame.K_k:
                     self._chara_2_fire_bullet()
                     pygame.mixer.music.load(self.chara_2_gun_sound, "pew2")
                     pygame.mixer.music.play()
@@ -170,6 +174,12 @@ class Game:
         for bullet in self.bullets_2.copy():
             if bullet.rect.left >= DISPLAY_W:
                 self.bullets_2.remove(bullet)
+
+    def _create_bird(self):
+        """create a bird enemy at some position"""
+        bird = Bird(self)
+        bird_width, bird_height = bird.rect.size
+
 
     def draw_text(self, text, size, x, y):
         # Function to draw text on menus
