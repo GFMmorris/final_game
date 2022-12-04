@@ -60,8 +60,8 @@ class Game:
         self.display = pygame.Surface((self.DISPLAY_W, self.DISPLAY_H))
         self.window = pygame.display.set_mode((self.DISPLAY_W, self.DISPLAY_H))
 
-        # Text information
-        self.font_name = pygame.font.get_default_font()
+        # Text information, uses an imported font from 1001freefonts.com
+        self.font_name = "fonts/8-bit-operator/8bitOperatorPlus8-Regular.ttf"
         self.BLACK, self.WHITE = (0, 0, 0), (255, 255, 255)
 
         # BackGround stuff

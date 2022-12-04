@@ -13,7 +13,7 @@ class Menu:
 
     # draw cursor with function for writing text in game class.
     def draw_cursor(self):
-        self.game.draw_text('*', 30, self.cursor_rect.x, self.cursor_rect.y + 7)
+        self.game.draw_text('*', 30, self.cursor_rect.x, self.cursor_rect.y)
 
     def blit_screen(self):
         self.game.window.blit(self.game.display, (0, 0))
