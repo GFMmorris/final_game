@@ -44,9 +44,17 @@ class Chara2(pygame.sprite.Sprite):
                 self.up_speed = self.jump_height
             self.rect.midbottom = self.pos
 
-    def update(self):
+    def update(self, jumping):
         """Update the characters rect position"""
         self.rect.y = self.y
+        if jumping:
+            self.image = pygame.image.load('images/Characters/chara_2_jump.png')
+            self.image = pygame.transform.scale(self.image, (54, 54))
+            self.image = pygame.transform.flip(self.image, flip_x=True, flip_y=False)
+        else:
+            self.image = pygame.image.load('images/Characters/chara_2_stand.png')
+            self.image = pygame.transform.scale(self.image, (54, 54))
+            self.image = pygame.transform.flip(self.image, flip_x=True, flip_y=False)
 
     def blitme(self):
         self.screen.blit(self.image, self.rect)

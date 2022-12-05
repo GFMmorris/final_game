@@ -40,7 +40,7 @@ class MainMenu(Menu):
             self.game.check_events()
             self.check_input()
             self.game.display.fill(self.game.BLACK)
-            self.game.draw_text('Game Title', 40, self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 2 - 20)
+            self.game.draw_text('Friends', 40, self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 2 - 20)
             self.game.draw_text('Start Game', 20, self.start_x, self.start_y)
             self.game.draw_text('Options', 20, self.options_x, self.options_y)
             self.game.draw_text('Credits', 20, self.credits_x, self.credits_y)

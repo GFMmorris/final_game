@@ -1,6 +1,8 @@
 import pygame.sprite
 import sys
 
+from random import randint
+
 from ground import Ground, GROUND_SIZE, Fill
 from chara import Chara
 from chara2 import Chara2
@@ -89,6 +91,10 @@ class Game:
 
         # enemy init data
         self.birds = pygame.sprite.Group()
+        self.bird_number = 5
+
+        # level counter
+        self.level_counter = 1
 
     # Molly Tressler Helped to make CHara jump
     def game_loop(self):
@@ -96,8 +102,10 @@ class Game:
             self.check_events()
             self._update_bullets()
             self._update_chara()
+            self._update_birds()
             self.reset_keys()
             self.update_screen()
+            self.level_counter += 1
 
     def check_events(self):
         """Key Press event information. Gets events from pygame. Event, checks the kind of event."""
@@ -149,24 +157,20 @@ class Game:
             new_bullet = Bullet2(self)
             self.bullets_2.add(new_bullet)
 
-    # def _chara_jump(self):
-    #     """Make the chracter jump on the screen"""
-    #     self.chara.jump()
-
     def _update_chara(self):
         """Update the position of the chara"""
         if jumping:
             self.chara.jump()
         if jumping_2:
             self.chara_2.jump()
-        self.chara.update()
-        self.chara_2.update()
+        self.chara.update(jumping)
+        self.chara_2.update(jumping_2)
 
     def _update_bullets(self):
         """Update the position of the bullets and then get rid of old bullets"""
         # update bullet position
-        self.bullets.update()
-        self.bullets_2.update()
+        self.bullets.update(self.birds)
+        self.bullets_2.update(self.birds)
         # Get rid of bullets that have disappeared
         for bullet in self.bullets.copy():
             if bullet.rect.left >= DISPLAY_W:
@@ -178,8 +182,10 @@ class Game:
     def _create_bird(self):
         """create a bird enemy at some position"""
         bird = Bird(self)
-        bird_width, bird_height = bird.rect.size
-
+        bird.x = 700
+        bird.rect.x = bird.x
+        bird.rect.y = randint(0, 500)
+        self.birds.add()
 
     def draw_text(self, text, size, x, y):
         # Function to draw text on menus
@@ -188,6 +194,18 @@ class Game:
         text_rect = text_surface.get_rect()
         text_rect.center = (x, y)
         self.display.blit(text_surface, text_rect)
+
+    def _update_birds(self):
+        """Birds now update position and keep a constant numebr of birds on the screen"""
+        self.birds.update(self.level_counter)
+        if len(self.birds) < self.bird_number:
+            new_bird = Bird(self)
+            self.birds.add(new_bird)
+
+    def add_bird(self):
+        if len(self.birds) < self.bird_number:
+            new_bird = Bird(self)
+            self.birds.add(new_bird)
 
     def update_screen(self):
         """Update the screen with all information about the chara and all enemies and projectiles"""
@@ -203,6 +221,8 @@ class Game:
         # blit bullet for chara 2
         for bullet in self.bullets_2.sprites():
             bullet.make_bullet()
+
+        self.birds.draw(self.screen)
 
         # Draw the character
         self.chara.blitme()

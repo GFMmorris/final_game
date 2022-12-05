@@ -25,9 +25,10 @@ class Bullet(Sprite):
         self.rect.midright = g_game.chara.rect.midright
         self.x = float(self.rect.x)
 
-    def update(self):
+    def update(self, birds):
         """Move the bullet across the screen"""
         # Update the decimal position of the bullet
+        collision = pygame.sprite.spritecollide(self, birds, True)
         self.x += self.bullet_speed
         # update the rect position
         self.rect.x = self.x
