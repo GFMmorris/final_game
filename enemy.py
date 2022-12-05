@@ -19,7 +19,7 @@ class Bird(Sprite):
 
         # start position for each bird
         self.rect.x = 645
-        self.rect.y = randint(32, 295)
+        self.rect.y = randint(32, 255)
 
         # position data x, and y
         self.x = float(self.rect.x)

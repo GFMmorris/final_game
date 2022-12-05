@@ -18,7 +18,7 @@ Level Up: The birds get faster over time as they die. (enemy.py line 31)
 
 Looking Weak(modified): The characters image changes if the character is jumping or not. (chara.py and chara2.py, line 50)
 
-Shooter: The Characters fire bullets. Each has a seperate bullet group that gets updated independently (bullet.py game_test.py line 132,139)
+Shooter: The Characters fire bullets. Each has a separate bullet group that gets updated independently (bullet.py game_test.py line 132,139)
 
 Textual: The text is not static and changes based on which screen is shown. Seperate draw text function was made(menu.py, game_test.py line 190)
 

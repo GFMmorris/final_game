@@ -201,6 +201,9 @@ class Game:
         if len(self.birds) < self.bird_number:
             new_bird = Bird(self)
             self.birds.add(new_bird)
+        for bird in self.birds:
+            if bird.rect.x < 0:
+                pygame.sprite.Sprite.kill(bird)
 
     def add_bird(self):
         if len(self.birds) < self.bird_number:
