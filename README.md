@@ -28,4 +28,5 @@ Fancy Fonts: The font that is used is not native to pygame, it was downloaded an
 
 Main Menu: The main screen has a few different sub menus that can be interacted with. (menu.py)
 
-TO RUN THE GAME, RUN THE main.py FILE
+TO RUN THE GAME, RUN THE main.py FILE.
+# Press Shift + F10 to Start
